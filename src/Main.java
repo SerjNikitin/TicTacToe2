@@ -9,49 +9,55 @@ public class Main {
 
     static void playGame() {
         char[][] pole = createPole();
+        paintPole(pole);
         while (true) {
-            paintPole(pole);
+            if (!checkIsUser(pole)) {
+                return;
+            }
 
-            playUser(pole);
-            checkIsWin(pole,'X');
-
-            playMachine(pole);
-            checkIsFail(pole,'0');
+            if (!checkIsMachine(pole)) {
+                return;
+            }
         }
 
     }
-    static boolean checkIsWin(char[][]pole,char sine){
+
+    static boolean checkIsUser(char[][] pole) {
+        playUser(pole);
+        paintPole(pole);
+        return checkIsWin(pole, 'X', "Вы выиграли!");
+
+
+    }
+
+    static boolean checkIsMachine(char[][] pole) {
+        playMachine(pole);
+        paintPole(pole);
+        return checkIsWin(pole, 'O', "Вы проиграли!(");
+    }
+
+    static boolean checkIsWin(char[][] pole, char sine, String x) {
         if (isDraw(pole)) {
             System.out.println("Ничья!");
             return false;
         }
 
-        if (isWin(pole, 'X')) {
-            System.out.println("Вы выиграли!!!");
+        if (isWin(pole, sine)) {
+            System.out.println(x);
             return false;
         }
         return true;
 
-    }
-    static boolean checkIsFail(char[][]pole,char sine){
-        if (isDraw(pole)) {
-            System.out.println("Ничья!");
-            return false;
-        }
-
-        if (isWin(pole, '0')) {
-            System.out.println("Вы проиграли");
-            return false;
-        }
-        return true;
     }
 
     static char[][] createPole() {
         return new char[][]{
-                {'-', '-', '-', '-'},
-                {'-', '-', '-', '-'},
-                {'-', '-', '-', '-'},
-                {'-', '-', '-', '-'}
+                {'-', '-', '-', '-', '-'},
+                {'-', '-', '-', '-', '-'},
+                {'-', '-', '-', '-', '-'},
+                {'-', '-', '-', '-', '-'},
+                {'-', '-', '-', '-', '-'}
+
         };
     }
 
@@ -62,6 +68,7 @@ public class Main {
             }
             System.out.println();
         }
+        System.out.println();
     }
 
     static void playUser(char[][] pole) {
@@ -97,7 +104,7 @@ public class Main {
             x = random.nextInt(pole.length);
             y = random.nextInt(pole.length);
         } while (freeNotFree(pole, x, y));
-        pole[x][y] = '0';
+        pole[x][y] = 'O';
 
     }
 
