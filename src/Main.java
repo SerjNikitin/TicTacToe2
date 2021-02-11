@@ -11,30 +11,39 @@ public class Main {
         char[][] pole = createPole();
         while (true) {
             paintPole(pole);
-            playUser(pole);
-            if (isDraw(pole)) {
-                System.out.println("Ничья!");
-                return;
-            }
 
-            if (isWin(pole, 'X')) {
-                System.out.println("Вы выиграли!!!");
-                return;
-            }
+            playUser(pole);
+            checkIsWin(pole,'X');
 
             playMachine(pole);
-            if (isDraw(pole)) {
-                System.out.println("Ничья!");
-                return;
-            }
-
-            if (isWin(pole, '0')) {
-                System.out.println("Вы проиграли");
-                return;
-            }
-
+            checkIsFail(pole,'0');
         }
 
+    }
+    static boolean checkIsWin(char[][]pole,char sine){
+        if (isDraw(pole)) {
+            System.out.println("Ничья!");
+            return false;
+        }
+
+        if (isWin(pole, 'X')) {
+            System.out.println("Вы выиграли!!!");
+            return false;
+        }
+        return true;
+
+    }
+    static boolean checkIsFail(char[][]pole,char sine){
+        if (isDraw(pole)) {
+            System.out.println("Ничья!");
+            return false;
+        }
+
+        if (isWin(pole, '0')) {
+            System.out.println("Вы проиграли");
+            return false;
+        }
+        return true;
     }
 
     static char[][] createPole() {
