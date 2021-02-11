@@ -8,10 +8,10 @@ public class Main {
     }
 
     static void playGame() {
-        char[][] pole = createPole();
-        paintPole(pole);
+        paintPole();
         while (true) {
-            if (!checkIsUser(pole)) {
+
+            if (!checkIsUser()) {
                 return;
             }
 
